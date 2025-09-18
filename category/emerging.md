@@ -1,8 +1,9 @@
-     layout: category
-     title: Emerging Threats Posts
-     category: emerging
-     permalink: /category/emerging
-     <h1>{{ page.title }}</h1>
+---
+layout: default
+title: Resources Posts
+permalink: /category/emerging/
+---
+<h1>{{ page.title }}</h1>
 <div class="post-list">
   {% for post in site.categories.emerging %}
     <li>
@@ -12,5 +13,4 @@
     </li>
   {% endfor %}
 </div>
-     ---
-     All posts about emerging cybersecurity threats.
+All posts with cybersecurity emerging threats and researches.
