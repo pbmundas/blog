@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<h1>Welcome to My Blog!</h1>
+<!--<h1>Welcome to My Blog!</h1>-->
 <div class="post-list">
   {% for post in site.posts %}
     <li>
