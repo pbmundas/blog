@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Resources Posts
+title: Resources Related
 permalink: /category/resources/
 ---
 <h1>{{ page.title }}</h1>
