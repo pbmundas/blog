@@ -1,3 +1,4 @@
+---
 layout: default
 title: [Category] Posts
 permalink: /category/[category]/
