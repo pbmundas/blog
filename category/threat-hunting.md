@@ -1,10 +1,10 @@
-     layout: category
-     title: Threat Hunting Posts
-     category: threat-hunting
-     permalink: /category/threat-hunting
-     <h1>{{ page.title }}</h1>
+layout: default
+title: [Category] Posts
+permalink: /category/[category]/
+---
+<h1>{{ page.title }}</h1>
 <div class="post-list">
-  {% for post in site.categories.threat-hunting %}
+  {% for post in site.categories.[category] %}
     <li>
       <h2 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
       <p class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</p>
@@ -12,5 +12,4 @@
     </li>
   {% endfor %}
 </div>
-     ---
-     All posts related to threat hunting techniques and tools.
+[Intro text for the category]
