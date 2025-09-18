@@ -1,4 +1,19 @@
-/* Custom styles for your blog */
-body {
-  background-color: #f5f5f5;
-}
+/* Custom styles */
+       body {
+         background-color: #f5f5f5;
+       }
+       nav ul {
+         list-style: none;
+         display: flex;
+         gap: 15px;
+         padding: 10px;
+         background-color: #333;
+       }
+       nav ul li a {
+         color: white;
+         text-decoration: none;
+         font-weight: bold;
+       }
+       nav ul li a:hover {
+         color: #ddd;
+       }
