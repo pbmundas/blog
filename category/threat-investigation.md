@@ -1,8 +1,9 @@
-     layout: category
-     title: Threat Investigation Posts
-     category: threat-investigation
-     permalink: /category/threat-investigation
-     <h1>{{ page.title }}</h1>
+---
+layout: default
+title: Threat investigation related
+permalink: /category/threat-investigation/
+---
+<h1>{{ page.title }}</h1>
 <div class="post-list">
   {% for post in site.categories.threat-investigation %}
     <li>
@@ -12,5 +13,4 @@
     </li>
   {% endfor %}
 </div>
-     ---
-     All posts on investigating cyber incidents.
+All posts with cybersecurity threat investigation.
