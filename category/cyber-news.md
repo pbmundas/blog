@@ -1,8 +1,9 @@
-     layout: category
-     title: Cyber News Posts
-     category: cyber-news
-     permalink: /category/cyber-news
-     <h1>{{ page.title }}</h1>
+---
+layout: default
+title: Cybersecurity related news
+permalink: /category/cyber-news/
+---
+<h1>{{ page.title }}</h1>
 <div class="post-list">
   {% for post in site.categories.cyber-news %}
     <li>
@@ -12,5 +13,4 @@
     </li>
   {% endfor %}
 </div>
-     ---
-     All posts with the latest cybersecurity news.
+All posts with cybersecurity related news.
