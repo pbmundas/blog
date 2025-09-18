@@ -8,3 +8,11 @@ plugins:
   - jekyll-seo-tag
 show_excerpts: true
 permalink: /:year/:month/:day/:title.html # Optional: Clean URL structure
+header_pages:
+       - about.md
+       - category/threat-hunting.md
+       - category/threat-investigation.md
+       - category/emerging.md
+       - category/cyber-news.md
+       - category/soc.md
+       - category/resources.md
