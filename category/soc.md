@@ -1,8 +1,9 @@
-     layout: category
-     title: SOC Posts
-     category: soc
-     permalink: /category/soc
-     <h1>{{ page.title }}</h1>
+---
+layout: default
+title: SOC related
+permalink: /category/soc/
+---
+<h1>{{ page.title }}</h1>
 <div class="post-list">
   {% for post in site.categories.soc %}
     <li>
@@ -12,5 +13,4 @@
     </li>
   {% endfor %}
 </div>
-     ---
-     All posts about Security Operations Centers.
+All posts with cybersecurity Security Operations.
