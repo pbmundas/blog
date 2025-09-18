@@ -5,12 +5,10 @@ date: 2025-09-18 13:40:00 +0530
 categories: threat-hunting
 ---
 
-# Advanced Threat Hunting Study Plan
-
 ## Overview
 This study plan is a detailed, hands-on roadmap to becoming a professional threat hunter, covering all attack surfaces (network, endpoint, cloud, application, and OT/ICS) and advanced techniques. It emphasizes practical skills, automation, threat intelligence, and adversary emulation, integrating the MITRE ATT&CK framework, Cyber Kill Chain, and modern tools. The plan is divided into five phases, each with specific learning objectives, resources, and tasks to ensure mastery. Expect to dedicate 15-25 hours/week for 12-18 months, depending on your prior knowledge.
 
----
+
 
 ## Phase 1: Foundational Knowledge (2-3 Months)
 Goal: Build a robust foundation in cybersecurity, networking, systems, scripting, and threat intelligence to prepare for advanced threat hunting.
