@@ -1,11 +1,11 @@
 ---
 layout: default
-title: [Category] Posts
-permalink: /category/[category]/
+title: Threat Hunting Related
+permalink: /category/threat-hunting/
 ---
 <h1>{{ page.title }}</h1>
 <div class="post-list">
-  {% for post in site.categories.[category] %}
+  {% for post in site.categories.threat-hunting %}
     <li>
       <h2 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
       <p class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</p>
@@ -13,4 +13,4 @@ permalink: /category/[category]/
     </li>
   {% endfor %}
 </div>
-[Intro text for the category]
+All posts with cybersecurity resources and tools.
