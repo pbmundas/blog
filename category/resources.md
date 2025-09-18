@@ -1,8 +1,9 @@
-     layout: category
-     title: Resources Posts
-     category: resources
-     permalink: /category/resources
-     <h1>{{ page.title }}</h1>
+---
+layout: default
+title: Resources Posts
+permalink: /category/resources/
+---
+<h1>{{ page.title }}</h1>
 <div class="post-list">
   {% for post in site.categories.resources %}
     <li>
@@ -12,5 +13,4 @@
     </li>
   {% endfor %}
 </div>
-     ---
-     All posts with cybersecurity resources and tools.
+All posts with cybersecurity resources and tools.
