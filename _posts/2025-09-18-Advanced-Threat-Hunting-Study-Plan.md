@@ -1,3 +1,10 @@
+---
+layout: post
+title: "Advanced Threat Hunting Study Plan!"
+date: 2025-09-18 13:40:00 +0530
+categories: threat-hunting
+---
+
 # Advanced Threat Hunting Study Plan
 
 ## Overview
