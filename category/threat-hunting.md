@@ -13,4 +13,4 @@ permalink: /category/threat-hunting/
     </li>
   {% endfor %}
 </div>
-All posts with cybersecurity resources and tools.
+All posts with cybersecurity threat hunting.
