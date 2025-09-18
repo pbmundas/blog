@@ -1,4 +1,11 @@
-### Onboarding and Initial Assessment
+---
+layout: post
+title: "Onboarding new team as a threat hunter"
+date: 2025-09-18 13:40:00 +0530
+categories: threat-hunting
+---
+
+
 As a senior threat hunter joining a new team, my first priority is to hit the ground running without disrupting operations. I'd start with a structured onboarding phase to build context and relationships. Here's how I'd approach it:
 
 - **Build Relationships:** Schedule 1:1 meetings with key stakeholders, including team leads, SOC analysts, incident responders, and executives. Understand their pain points, expectations, and how threat hunting fits into the broader security posture. I'd ask questions like: "What are the top threats you've seen in the last 6 months?" or "How do you currently prioritize hunts?"
