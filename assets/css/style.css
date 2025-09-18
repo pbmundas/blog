@@ -29,7 +29,7 @@ body {
   color: #ecf0f1;
   text-decoration: none;
   font-weight: 500;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0rem;
   transition: color 0.3s ease;
 }
 
