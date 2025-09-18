@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: default
 ---
 <h1>Welcome to My Blog!</h1>
 <div class="post-list">
