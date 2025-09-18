@@ -1,6 +1,6 @@
 title: My WordPress-Like Blog
 description: A blog powered by Jekyll on GitHub Pages
-url: "/blog"
+url: "https://pbmundas.github.io/"
 baseurl: "/blog" # Use this if you want the blog at https://pbmundas.github.io/blog
 theme: minima
 plugins:
