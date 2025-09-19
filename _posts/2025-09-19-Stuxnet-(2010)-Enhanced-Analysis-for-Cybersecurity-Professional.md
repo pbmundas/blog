@@ -27,7 +27,8 @@ Stuxnet exploited four zero-days and one patched vulnerability (MS08-067) for pr
 **ASCII Attack Flow Diagram** (Simplified; for Mermaid: graph LR; A[USB Insertion] --> B[.LNK Exploit CVE-2010-2568]; B --> C[Rootkit Install]; C --> D[Lateral via RPC CVE-2010-2729]; D --> E[Step7 Infection]; E --> F[PLC Code Inject]; F --> G[Centrifuge Sabotage & Replay])
 
 ```
-USB Insert --> .LNK Exploit (CVE-2010-2568) --> EoP (CVE-2010-2743) --> Rootkit Hide --> Lateral (Print Spooler CVE-2010-2729) --> Siemens Step7 Hijack --> PLC Modify (Speed Cycles) --> Physical Damage (Centrifuges Fail)
+USB Insert --> .LNK Exploit (CVE-2010-2568) --> EoP (CVE-2010-2743) --> Rootkit Hide --> Lateral (Print Spooler CVE-2010-2729)
+--> Siemens Step7 Hijack --> PLC Modify (Speed Cycles) --> Physical Damage (Centrifuges Fail)
 ```
 
 Variants: 0.5 (2007 test), 1.0 (2009), 1.1 (2010 improved propagation). Evolved into Duqu (recon), Flame (espionage, 20MB modular), Gauss (banking/APT).
