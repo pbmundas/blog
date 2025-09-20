@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple File Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://unpkg.com/papaparse@latest/papaparse.min.js"></script>
+    <style>
+        body { padding: 20px; }
+        .container { max-width: 800px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Simple File Converter</h1>
+        <p>This tool converts between JSON/JSONL, XML, SYSLOG, LOG, and CSV formats. Conversions are done client-side in your browser for privacy—no files are uploaded or stored. The output file retains the input file's name with the appropriate extension.</p>
+        <p><strong>Note:</strong> EVTX (Windows Event Log binary format) is not supported in this browser-based tool due to its complex binary structure. Use dedicated tools like evtx_dump or PowerShell's Get-WinEvent for EVTX conversions. For JSON, it supports both standard JSON arrays/objects and JSONL (JSON Lines, one object per line). Handles logs from any devices by treating them generically based on selected format.</p>
+        
+        <div class="mb-3">
+            <label for="direction" class="form-label">Conversion Direction</label>
+            <select id="direction" class="form-select">
+                <option value="to-csv">To CSV (from JSON/JSONL/XML/SYSLOG/LOG)</option>
+                <option value="from-csv">From CSV (to JSON/XML/SYSLOG/LOG)</option>
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="format" class="form-label">Format</label>
+            <select id="format" class="form-select">
+                <option value="json">JSON/JSONL</option>
+                <option value="xml">XML</option>
+                <option value="syslog">SYSLOG</option>
+                <option value="log">LOG</option>
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="fileInput" class="form-label">Upload File</label>
+            <input type="file" id="fileInput" class="form-control">
+        </div>
+        
+        <button id="convertBtn" class="btn btn-primary mb-3">Convert</button>
+        
+        <a id="downloadLink" class="btn btn-success d-none" download>Download Result</a>
+        
+        <div id="errorMsg" class="alert alert-danger d-none"></div>
+        <div id="infoMsg" class="alert alert-info d-none"></div>
+    </div>
+
+    <script>
+        const directionSelect = document.getElementById('direction');
+        const formatSelect = document.getElementById('format');
+        const fileInput = document.getElementById('fileInput');
+        const convertBtn = document.getElementById('convertBtn');
+        const downloadLink = document.getElementById('downloadLink');
+        const errorMsg = document.getElementById('errorMsg');
+        const infoMsg = document.getElementById('infoMsg');
+
+        convertBtn.addEventListener('click', handleConvert);
+
+        function showError(msg) {
+            errorMsg.textContent = msg;
+            errorMsg.classList.remove('d-none');
+            infoMsg.classList.add('d-none');
+            downloadLink.classList.add('d-none');
+        }
+
+        function showInfo(msg) {
+            infoMsg.textContent = msg;
+            infoMsg.classList.remove('d-none');
+        }
+
+        function prepareDownload(content, filename) {
+            const blob = new Blob([content], { type: 'text/plain' });
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = filename;
+            downloadLink.classList.remove('d-none');
+            errorMsg.classList.add('d-none');
+        }
+
+        function handleConvert() {
+            const file = fileInput.files[0];
+            if (!file) return showError('Please upload a file.');
+
+            const direction = directionSelect.value;
+            const format = formatSelect.value;
+            const fileNameWithoutExt = file.name.split('.').slice(0, -1).join('.');
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    let result;
+                    if (direction === 'to-csv') {
+                        result = convertToCSV(e.target.result, format);
+                        prepareDownload(result, `${fileNameWithoutExt}.csv`);
+                    } else {
+                        const csvData = Papa.parse(e.target.result, { header: true, skipEmptyLines: true }).data;
+                        result = convertFromCSV(csvData, format);
+                        prepareDownload(result, `${fileNameWithoutExt}.${format}`);
+                    }
+                    showInfo('Conversion successful. If the input was malformed, partial recovery may have been attempted.');
+                } catch (err) {
+                    showError('Error during conversion: ' + err.message + '. Please check file format and try again.');
+                }
+            };
+            reader.onerror = () => showError('Error reading file.');
+            reader.readAsText(file);
+        }
+
+        function convertToCSV(content, format) {
+            let data = [];
+            if (format === 'json') {
+                try {
+                    data = JSON.parse(content);
+                    if (!Array.isArray(data)) data = [data];
+                } catch (err) {
+                    // Handle JSONL or malformed JSON
+                    const lines = content.split(/\r?\n/).filter(line => line.trim());
+                    for (let line of lines) {
+                        try {
+                            data.push(JSON.parse(line));
+                        } catch (innerErr) {
+                            console.warn('Skipping invalid JSON line:', line);
+                        }
+                    }
+                    if (data.length === 0) throw new Error('No valid JSON objects found.');
+                    showInfo('Detected JSONL or multiple objects; parsed ' + data.length + ' valid entries.');
+                }
+                return Papa.unparse(data);
+            } else if (format === 'xml') {
+                try {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(content, 'text/xml');
+                    if (xmlDoc.getElementsByTagName('parsererror').length > 0) throw new Error('Invalid XML');
+                    const rows = Array.from(xmlDoc.documentElement.children).map(row => {
+                        return Array.from(row.children).reduce((acc, col) => {
+                            acc[col.tagName] = col.textContent.trim();
+                            return acc;
+                        }, {});
+                    });
+                    data = rows;
+                } catch (err) {
+                    showError('XML parsing failed: ' + err.message + '. Ensure well-formed XML.');
+                    throw err;
+                }
+                return Papa.unparse(data);
+            } else if (format === 'syslog') {
+                const lines = content.split(/\r?\n/).filter(line => line.trim());
+                data = lines.map(line => parseSyslogLine(line));
+                return Papa.unparse(data);
+            } else if (format === 'log') {
+                const lines = content.split(/\r?\n/);
+                data = lines.map(line => ({ log: line.trim() }));
+                return Papa.unparse(data);
+            }
+            throw new Error('Unsupported format');
+        }
+
+        function parseSyslogLine(line) {
+            const regex = /<(\d+)>?(\w{3} \d{1,2} \d{2}:\d{2}:\d{2})? (\S+)? (\S+)?\[(\d+)\]?: (.*)/;
+            const match = line.match(regex);
+            if (match) {
+                const [, priority, timestamp, host, process, pid, message] = match;
+                const priNum = parseInt(priority || '0');
+                return {
+                    priority: priNum,
+                    facility: Math.floor(priNum / 8),
+                    severity: priNum % 8,
+                    timestamp: timestamp || '',
+                    host: host || '',
+                    process: process || '',
+                    pid: pid || '0',
+                    message: message || ''
+                };
+            }
+            return { raw: line };
+        }
+
+        function convertFromCSV(data, format) {
+            if (format === 'json') {
+                return JSON.stringify(data, null, 2);
+            } else if (format === 'xml') {
+                let xml = '<root>\n';
+                data.forEach(row => {
+                    xml += '  <item>\n';
+                    Object.entries(row).forEach(([key, value]) => {
+                        xml += `    <${escapeXml(key)}>${escapeXml(value)}</${escapeXml(key)}>\n`;
+                    });
+                    xml += '  </item>\n';
+                });
+                xml += '</root>';
+                return xml;
+            } else if (format === 'syslog') {
+                return data.map(row => {
+                    const priority = (parseInt(row.facility) || 0) * 8 + (parseInt(row.severity) || 0);
+                    return `<${priority}>${row.timestamp || ''} ${row.host || ''} ${row.process || 'process'}[${row.pid || 0}]: ${row.message || ''}`;
+                }).join('\n');
+            } else if (format === 'log') {
+                return data.map(row => Object.values(row).join(' ')).join('\n');
+            }
+            throw new Error('Unsupported format');
+        }
+
+        function escapeXml(unsafe) {
+            return unsafe.replace(/[<>&'"]/g, function (c) {
+                switch (c) {
+                    case '<': return '&lt;';
+                    case '>': return '&gt;';
+                    case '&': return '&amp;';
+                    case '\'': return '&apos;';
+                    case '"': return '&quot;';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
