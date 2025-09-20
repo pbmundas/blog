@@ -5,4 +5,4 @@ date: 2025-09-20 13:40:00 +0530
 categories: threat-hunting threat-investigation soc resources
 ---
 
-[Detection Conversion](Detection Conversion)
+Detection Conversion: https://detection.studio/
