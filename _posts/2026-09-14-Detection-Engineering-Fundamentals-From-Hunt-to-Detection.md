@@ -1,5 +1,5 @@
 ---
-title: Detection Engineering Fundamentals: From Hunt to Detection
+title: Detection Engineering Fundamentals From Hunt to Detection
 date: 2026-09-14 12:00:00 +0530
 categories: [Threat Hunting, Detection Engineering]
 tags: [Detection Engineering]
