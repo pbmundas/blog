@@ -1,5 +1,5 @@
 ---
-title: Measuring Detection Coverage: From ATT&CK to Detection Gaps
+title: Measuring Detection Coverage From ATT&CK to Detection Gaps
 date: 2026-09-19 12:00:00 +0530
 categories: [Detection Engineering]
 tags: [ATT&CK]
