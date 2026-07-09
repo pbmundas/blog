@@ -1,5 +1,5 @@
 ---
-title: Threat Hunting Metrics: Measuring and Proving Value
+title: Threat Hunting Metrics Measuring and Proving Value
 date: 2026-09-24 12:00:00 +0530
 categories: [Threat Hunting]
 tags: [Metrics]
