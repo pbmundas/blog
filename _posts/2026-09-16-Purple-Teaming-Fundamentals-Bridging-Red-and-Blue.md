@@ -1,5 +1,5 @@
 ---
-title: Purple Teaming Fundamentals: Bridging Red and Blue
+title: Purple Teaming Fundamentals Bridging Red and Blue
 date: 2026-09-16 12:00:00 +0530
 categories: [Threat Hunting, Purple Teaming]
 tags: [Purple Team]
