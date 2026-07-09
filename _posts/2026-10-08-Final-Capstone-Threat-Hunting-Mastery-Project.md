@@ -1,5 +1,5 @@
 ---
-title: Final Capstone: Threat Hunting Mastery Project
+title: Final Capstone Threat Hunting Mastery Project
 date: 2026-10-08 12:00:00 +0530
 categories: [Threat Hunting]
 tags: [Capstone]
