@@ -1,5 +1,5 @@
 ---
-title: Detection-as-Code: Managing Detections Like Software
+title: Detection-as-Code Managing Detections Like Software
 date: 2026-09-15 12:00:00 +0530
 categories: [Detection Engineering]
 tags: [Detection-as-Code]
