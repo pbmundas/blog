@@ -1,4 +1,3 @@
-
 ---
 title: Build a Threat Hunting Home Lab A Setup Guide
 date: 2026-06-05 12:00:00 +0530
