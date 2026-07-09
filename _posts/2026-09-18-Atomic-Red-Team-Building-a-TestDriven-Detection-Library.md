@@ -1,5 +1,5 @@
 ---
-title: Atomic Red Team: Building a Test-Driven Detection Library
+title: Atomic Red Team Building a Test-Driven Detection Library
 date: 2026-09-18 12:00:00 +0530
 categories: [Detection Engineering]
 tags: [Atomic Red Team]
