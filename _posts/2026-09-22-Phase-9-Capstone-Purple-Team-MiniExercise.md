@@ -1,5 +1,5 @@
 ---
-title: Phase 9 Capstone: Purple Team Mini-Exercise
+title: Phase 9 Capstone Purple Team Mini-Exercise
 date: 2026-09-22 12:00:00 +0530
 categories: [Purple Teaming]
 tags: [Capstone]
