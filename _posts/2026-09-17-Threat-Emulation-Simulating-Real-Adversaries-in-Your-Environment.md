@@ -1,5 +1,5 @@
 ---
-title: Threat Emulation: Simulating Real Adversaries in Your Environment
+title: Threat Emulation Simulating Real Adversaries in Your Environment
 date: 2026-09-17 12:00:00 +0530
 categories: [Threat Hunting, Adversary Emulation]
 tags: [Threat Emulation]
