@@ -1,5 +1,5 @@
 ---
-title: Case Study: Hunting Conti Ransomware From Initial Access to Impact
+title: Case Study Hunting Conti Ransomware From Initial Access to Impact
 date: 2026-09-29 12:00:00 +0530
 categories: [Threat Hunting, Case Study]
 tags: [Ransomware]
