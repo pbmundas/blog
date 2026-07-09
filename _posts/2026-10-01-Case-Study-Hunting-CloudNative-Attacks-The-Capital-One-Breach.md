@@ -1,5 +1,5 @@
 ---
-title: Case Study: Hunting Cloud-Native Attacks - The Capital One Breach
+title: Case Study Hunting Cloud-Native Attacks - The Capital One Breach
 date: 2026-10-01 12:00:00 +0530
 categories: [Threat Hunting, Case Study, Cloud Security]
 tags: [AWS]
