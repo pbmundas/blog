@@ -1,5 +1,5 @@
 ---
-title: AI and Machine Learning for Threat Hunters: Practical Applications
+title: AI and Machine Learning for Threat Hunters Practical Applications
 date: 2026-10-06 12:00:00 +0530
 categories: [Threat Hunting]
 tags: [AI/ML]
