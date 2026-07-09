@@ -1,5 +1,5 @@
 ---
-title: Case Study: Hunting the SolarWinds Supply Chain Attack
+title: Case Study Hunting the SolarWinds Supply Chain Attack
 date: 2026-09-27 12:00:00 +0530
 categories: [Threat Hunting, Case Study]
 tags: [SolarWinds]
