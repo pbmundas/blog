@@ -1,5 +1,5 @@
 ---
-title: The Principal Threat Hunter: Skills, Mindset, and Career Path
+title: The Principal Threat Hunter Skills, Mindset, and Career Path
 date: 2026-10-07 12:00:00 +0530
 categories: [Threat Hunting]
 tags: [Careers]
