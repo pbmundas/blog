@@ -1,5 +1,5 @@
 ---
-title: The Threat Hunting Mindset: Think Like an Attacker
+title: The Threat Hunting Mindset Think Like an Attacker
 date: 2026-06-02 12:00:00 +0530
 categories: [Threat Hunting, Introduction]
 tags: [Threat Hunting, Beginning]
