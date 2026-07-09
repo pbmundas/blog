@@ -1,5 +1,5 @@
 ---
-title: Insider Threat Hunting: Detecting Malicious Insiders and Data Theft
+title: Insider Threat Hunting Detecting Malicious Insiders and Data Theft
 date: 2026-10-02 12:00:00 +0530
 categories: [Threat Hunting]
 tags: [Insider Threat]
