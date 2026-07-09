@@ -1,5 +1,5 @@
 ---
-title: Hunt-to-Detect Pipeline: Operationalising Hunt Findings
+title: Hunt-to-Detect Pipeline Operationalising Hunt Findings
 date: 2026-09-21 12:00:00 +0530
 categories: [Detection Engineering]
 tags: [Pipeline]
