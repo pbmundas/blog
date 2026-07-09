@@ -1,5 +1,5 @@
 ---
-title: Case Study: Hunting the LAPSUS$ Group Identity-First Attacks
+title: Case Study Hunting the LAPSUS$ Group Identity-First Attacks
 date: 2026-09-30 12:00:00 +0530
 categories: [Threat Hunting, Case Study]
 tags: [Identity]
