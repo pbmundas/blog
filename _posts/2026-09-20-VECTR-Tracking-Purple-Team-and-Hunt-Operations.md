@@ -1,5 +1,5 @@
 ---
-title: VECTR: Tracking Purple Team and Hunt Operations
+title: VECTR Tracking Purple Team and Hunt Operations
 date: 2026-09-20 12:00:00 +0530
 categories: [Purple Teaming]
 tags: [VECTR]
