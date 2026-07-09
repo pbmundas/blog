@@ -1,6 +1,6 @@
 ---
 title: What Is Threat Hunting? A Complete Introduction
-date: 2026-06-02 12:00:00 +0530
+date: 2026-06-01 12:00:00 +0530
 categories: [Threat Hunting, Introduction]
 tags: [Threat Hunting, Beginning]
 META DESCRIPTION: A practical breakdown of threat hunting, how it differs from monitoring, and where it fits in a modern SOC's detection stack.
