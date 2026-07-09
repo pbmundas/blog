@@ -1,6 +1,6 @@
 ---
 title: The Threat Hunting Maturity Model Explained
-date: 2026-06-03 12:00:00 +0530
+date: 2026-06-04 12:00:00 +0530
 categories: [Threat Hunting, Introduction]
 tags: [Threat Hunting, Beginning]
 META DESCRIPTION: A walkthrough of the five levels of threat hunting maturity, what separates them, and how to honestly assess where your program stands.
