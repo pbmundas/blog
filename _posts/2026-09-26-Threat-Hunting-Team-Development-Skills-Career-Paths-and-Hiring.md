@@ -1,5 +1,5 @@
 ---
-title: Threat Hunting Team Development: Skills, Career Paths, and Hiring
+title: Threat Hunting Team Development Skills, Career Paths, and Hiring
 date: 2026-09-26 12:00:00 +0530
 categories: [Threat Hunting]
 tags: [Careers]
