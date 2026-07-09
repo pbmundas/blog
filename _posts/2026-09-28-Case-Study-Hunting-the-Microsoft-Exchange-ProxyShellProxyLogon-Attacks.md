@@ -1,5 +1,5 @@
 ---
-title: Case Study: Hunting the Microsoft Exchange ProxyShell/ProxyLogon Attacks
+title: Case Study Hunting the Microsoft Exchange ProxyShell/ProxyLogon Attacks
 date: 2026-09-28 12:00:00 +0530
 categories: [Threat Hunting, Case Study]
 tags: [Exchange]
