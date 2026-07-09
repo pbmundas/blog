@@ -1,5 +1,5 @@
 ---
-title: Advanced Persistent Threat Hunting: Long-Term Campaign Detection
+title: Advanced Persistent Threat Hunting Long-Term Campaign Detection
 date: 2026-10-04 12:00:00 +0530
 categories: [Threat Hunting]
 tags: [APT]
