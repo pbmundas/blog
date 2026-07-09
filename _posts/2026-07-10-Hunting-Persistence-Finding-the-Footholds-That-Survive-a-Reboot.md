@@ -5,7 +5,7 @@ categories: [Threat Hunting, MITRE ATT&CK]
 tags: [Persistence]
 META DESCRIPTION: A complete guide to hunting the persistence mechanisms attackers rely on to maintain access across reboots, credential changes, and time.
 ---
-
+ 
 An attacker who's gained access and run code once has nothing durable unless they've also established persistence  some mechanism that survives a reboot, a logoff, or the natural churn of a running system. Persistence hunting matters because the mechanisms available to achieve it are genuinely finite, which is one of the friendlier facts in threat hunting: unlike execution techniques, which can be endlessly creative, there are only so many ways to make something survive a restart on a given operating system.
 
 **Why Persistence Is a Genuinely Finite, Huntable Category**
