@@ -1,10 +1,16 @@
 ---
-title: PowerShell Logging for Threat Hunters
+title: "PowerShell Logging for Threat Hunters"
 date: 2026-07-30 12:00:00 +0530
 categories: [Threat Hunting, Windows Logging]
 tags: [PowerShell]
-META DESCRIPTION: Master ScriptBlock, module, and transcription logging in PowerShell to hunt fileless attacks and obfuscated scripts effectively.
+description: Master ScriptBlock, module, and transcription logging in PowerShell to hunt fileless attacks and obfuscated scripts effectively.
 ---
+
+## What you will learn
+
+- Identify the telemetry and fields this capability can provide to a hunt.
+- Use the capability to answer a bounded security question.
+- Validate results safely and document coverage, blind spots, and tuning needs.
 
 PowerShell is still the single most abused legitimate tool in a modern intrusion, and it's not close. It's on every Windows box by default, it's trusted by users and admins alike, and it can do almost anything an attacker needs  download payloads, dump credentials, move laterally, disable defenses  without ever touching disk if the operator's careful. If your PowerShell logging isn't configured properly, you're hunting with one eye closed against the tool attackers reach for most.
 
@@ -40,4 +46,11 @@ Worth mentioning because it directly affects what your logs will show: if you're
 
 The strongest PowerShell hunt queries don't rely on just one of these three sources. Start with ScriptBlock logs to catch the actual executed content regardless of obfuscation, use module logs to confirm which specific cmdlets or functions got invoked when you need that granularity, and lean on transcription logs when you need full session context including output, not just input. Treating these as three views into the same activity, rather than three separate and redundant logging mechanisms, is what makes PowerShell hunting actually effective instead of just partially effective.
 
-Getting comfortable pulling and correlating all three logging types against real obfuscated PowerShell samples takes hands-on repetition most people don't get outside of an actual incident. That's exactly what the PowerShell hunting module at Threat Hunt Labs is built for. Come practice de-obfuscating and correlating real PowerShell attack logs with us instead of learning the hard way mid-incident.
+
+## Safe lab exercise
+
+Choose one harmless, authorized action with a known timestamp. Predict the evidence it should create, run the smallest useful query, and confirm the relevant host, identity, process, network, and time fields. Record missing fields and false-positive conditions before expanding the scope.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.

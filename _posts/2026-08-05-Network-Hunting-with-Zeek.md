@@ -1,10 +1,16 @@
 ---
-title: Network Hunting with Zeek
+title: "Network Hunting with Zeek"
 date: 2026-08-05 12:00:00 +0530
 categories: [Threat Hunting, Network Hunting]
 tags: [Zeek]
-META DESCRIPTION: Learn how threat hunters use Zeek logs  conn, dns, http, ssl  to build hunt hypotheses and catch attackers PCAP alone would miss.
+description: Learn how threat hunters use Zeek logs  conn, dns, http, ssl  to build hunt hypotheses and catch attackers PCAP alone would miss.
 ---
+
+## What you will learn
+
+- Identify the telemetry and fields this capability can provide to a hunt.
+- Use the capability to answer a bounded security question.
+- Validate results safely and document coverage, blind spots, and tuning needs.
 
 A ransomware affiliate doesn't announce itself with a pop-up. It shows up first as a weird DNS query at 3 a.m., a JA3 hash that doesn't match anything in your environment, or a connection that stays open for six hours doing almost nothing. If you're only looking at full packet captures for this kind of thing, you're going to drown. Zeek exists precisely so you don't have to.
 
@@ -47,3 +53,12 @@ The honest limitation here: Zeek gives you metadata, not content. Once you find 
 If you're running Zeek without a documented hunt cadence  no set hypotheses, no review of what queries you've already run  you're basically operating a very expensive log aggregator. The tool is only as good as the hunter asking it questions.
 
 Want to get hands-on with Zeek log analysis using real hunt scenarios instead of theory? ThreatHuntLabs runs practical, lab-based Threat Hunting training built around exactly this kind of network data  check our courses and get proficient fast.
+
+
+## Safe lab exercise
+
+Choose one harmless, authorized action with a known timestamp. Predict the evidence it should create, run the smallest useful query, and confirm the relevant host, identity, process, network, and time fields. Record missing fields and false-positive conditions before expanding the scope.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.

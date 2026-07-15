@@ -1,10 +1,16 @@
 ---
-title: Hunting DNS Tunneling, DGA, and Covert C2
+title: "Hunting DNS Tunneling, DGA, and Covert C2"
 date: 2026-07-22 12:00:00 +0530
 categories: [Threat Hunting, MITRE ATT&CK]
 tags: [Command and Control, DNS Tunneling, DGA]
-META DESCRIPTION: A hands-on guide to detecting DNS tunneling, domain generation algorithms, and covert C2 hiding inside normal-looking traffic.
+description: A hands-on guide to detecting DNS tunneling, domain generation algorithms, and covert C2 hiding inside normal-looking traffic.
 ---
+
+## What you will learn
+
+- Explain the attacker behavior and why it matters to the environment.
+- Map the behavior to required endpoint, identity, network, or cloud evidence.
+- Build a scoped hypothesis and distinguish malicious activity from legitimate administration.
 
 DNS is the one protocol nobody blocks. That's exactly why it's such a popular hiding spot. Firewalls that lock down almost every outbound port will still cheerfully forward port 53 traffic to whatever resolver a host asks for, because breaking DNS breaks everything else too. Attackers know this, and DNS-based C2 has been a reliable fallback channel since long before Cobalt Strike made it fashionable.
 
@@ -40,4 +46,11 @@ Hunting these requires shifting focus from "is this domain bad" to "does this pr
 
 DNS-based detection shouldn't live in isolation  it's one thread in a bigger C2 hunting fabric alongside network beaconing and process telemetry from the first post in this series. The domains rotate, the tools change, but the underlying tell  abnormal query patterns against your own environment's baseline  stays fairly constant.
 
-If you want to practice this against real captured datasets instead of just reading entropy formulas, that's exactly the kind of lab-based hunt we run through in our DNS and covert channel modules at Threat Hunt Labs. Come run the queries yourself and see what your own traffic actually looks like.
+
+## Build the hunt
+
+Write one hypothesis using behavior, target, and expected evidence. Define the asset and time scope, required fields, likely benign explanations, and an escalation threshold. Test first in an authorized lab or approved dataset, then record what the available evidence can and cannot prove.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.

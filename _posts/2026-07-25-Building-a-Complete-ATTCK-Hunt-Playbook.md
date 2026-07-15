@@ -1,10 +1,16 @@
 ---
-title: Building a Complete ATT&CK Hunt Playbook
+title: "Building a Complete ATT&CK Hunt Playbook"
 date: 2026-07-25 12:00:00 +0530
 categories: [Threat Hunting, MITRE ATT&CK]
 tags: [Playbook]
-META DESCRIPTION: A practical walkthrough for mapping a full hunt playbook across all 14 MITRE ATT&CK tactics, from recon to impact.
+description: A practical walkthrough for mapping a full hunt playbook across all 14 MITRE ATT&CK tactics, from recon to impact.
 ---
+
+## What you will learn
+
+- Explain the concept in operational threat-hunting terms.
+- Connect it to a decision, data requirement, or repeatable workflow.
+- Apply it through a small exercise and document the limits of the result.
 
 Most hunt programs end up lopsided. Teams get good at one or two tactics  usually C2 and initial access, because that's where the tooling and blog posts concentrate  and leave big gaps everywhere else. I've seen mature SOCs with excellent phishing detection and beaconing analytics that have almost nothing built for Discovery or Collection, simply because those tactics don't generate the same volume of vendor content and conference talks.
 
@@ -38,4 +44,11 @@ This is really the difference between a checklist and an actual hunt program: th
 
 ATT&CK itself keeps growing  new sub-techniques get added, existing ones get refined  and your environment changes too: new cloud services, new remote access tools, new business units with different normal baselines. A playbook built once and left untouched for a year drifts out of relevance fast. Build a review cadence into it, quarterly at minimum, where you revisit coverage gaps and retire hunts against techniques that are no longer relevant to your actual attack surface.
 
-Building a genuinely complete playbook  one that covers all fourteen tactics with real queries against real data, not just a mapped spreadsheet  is exactly the capstone project we walk through step by step in our full hunting track at Threat Hunt Labs. If you've made it through this whole series, that's the natural next step: come build your own complete playbook with us instead of leaving it as a someday project.
+
+## Apply the lesson
+
+Choose one real or lab scenario and write down the decision this concept should improve, the evidence required, the owner, and the expected output. Review the result with someone who did not perform the work; revise any assumption they cannot trace to evidence.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.

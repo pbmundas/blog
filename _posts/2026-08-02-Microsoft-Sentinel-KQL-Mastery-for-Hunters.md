@@ -1,10 +1,16 @@
 ---
-title: Microsoft Sentinel KQL Mastery for Hunters
+title: "Microsoft Sentinel KQL Mastery for Hunters"
 date: 2026-08-02 12:00:00 +0530
 categories: [Threat Hunting, SIEM & Platforms]
 tags: [KQL, Microsoft Sentinel]
-META DESCRIPTION: Build advanced KQL hunting queries in Microsoft Sentinel  joins, summarize, and behavioral baselining explained.
+description: Build advanced KQL hunting queries in Microsoft Sentinel  joins, summarize, and behavioral baselining explained.
 ---
+
+## What you will learn
+
+- Identify the telemetry and fields this capability can provide to a hunt.
+- Use the capability to answer a bounded security question.
+- Validate results safely and document coverage, blind spots, and tuning needs.
 
 KQL in Sentinel gets compared to SQL a lot, and that comparison undersells it. SQL is built for structured relational data with known schemas. KQL is built for exploring massive, semi-structured log data where you often don't know the exact shape of what you're querying until you've run a few exploratory passes. Once that distinction clicks, you stop trying to write KQL like SQL and start using the operators that actually make it powerful for hunting.
 
@@ -40,4 +46,11 @@ Sentinel draws a clear line between the Hunting blade, meant for ad hoc explorat
 
 The workflow that actually works: hunt first, validate the query's precision against a few weeks of historical data to understand its false-positive rate, then promote it to a scheduled analytics rule once you trust it enough to alert on automatically. Treat the hunting blade as your R&D environment, not your permanent home for queries that have already proven themselves.
 
-Getting fluent in KQL  not just the basic where and project operators but summarize, join, and the statistical functions that make behavioral hunting possible  takes real practice against realistic data. That's exactly what the Sentinel hunting track at Threat Hunt Labs is built around. Come build baseline and anomaly queries yourself instead of copy-pasting KQL you don't fully understand.
+
+## Safe lab exercise
+
+Choose one harmless, authorized action with a known timestamp. Predict the evidence it should create, run the smallest useful query, and confirm the relevant host, identity, process, network, and time fields. Record missing fields and false-positive conditions before expanding the scope.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.

@@ -1,10 +1,16 @@
 ---
-title: Hunting Exfiltration Before It's Too Late
+title: "Hunting Exfiltration Before It's Too Late"
 date: 2026-07-23 12:00:00 +0530
 categories: [Threat Hunting, MITRE ATT&CK]
 tags: [Exfiltration]
-META DESCRIPTION: Practical detection strategies for spotting data exfiltration in network and cloud telemetry, before or after data leaves.
+description: Practical detection strategies for spotting data exfiltration in network and cloud telemetry, before or after data leaves.
 ---
+
+## What you will learn
+
+- Explain the attacker behavior and why it matters to the environment.
+- Map the behavior to required endpoint, identity, network, or cloud evidence.
+- Build a scoped hypothesis and distinguish malicious activity from legitimate administration.
 
 By the time exfiltration alerts fire in most environments, the data's usually already gone. That's the uncomfortable truth about this stage of an intrusion  it's often the shortest phase, sometimes measured in minutes, especially once an attacker has staged files and just needs to push them out. Hunting exfil well means catching the staging and transfer behavior, not just reacting to a DLP alert three days later.
 
@@ -36,4 +42,11 @@ Worth remembering: everything covered in the DNS tunneling post applies here dir
 
 If you catch exfiltration in progress  genuinely in progress, not post-mortem  your investigation priorities change completely. Isolating the host matters less than understanding scope fast: what data was actually accessed versus staged, whether credentials used to access it were legitimate or compromised, and whether the transfer channel gives you a live IP or domain worth blocking immediately at the perimeter. Speed of triage here directly affects how much data actually leaves versus how much you stop mid-stream.
 
-Getting fast at that triage decision-making isn't something you build from reading blog posts  it comes from practicing against realistic staged scenarios where the clock is actually running. That's the kind of scenario-based hunting practice we build into the exfiltration modules at Threat Hunt Labs. Come run a live-fire exfil scenario and see how your triage instincts hold up under time pressure.
+
+## Build the hunt
+
+Write one hypothesis using behavior, target, and expected evidence. Define the asset and time scope, required fields, likely benign explanations, and an escalation threshold. Test first in an authorized lab or approved dataset, then record what the available evidence can and cannot prove.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.

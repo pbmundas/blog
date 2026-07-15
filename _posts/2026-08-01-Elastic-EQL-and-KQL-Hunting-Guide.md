@@ -1,10 +1,16 @@
 ---
-title: Elastic EQL and KQL Hunting Guide
+title: "Elastic EQL and KQL Hunting Guide"
 date: 2026-08-01 12:00:00 +0530
 categories: [Threat Hunting, SIEM & Platforms]
 tags: [Elastic, EQL, KQL]
-META DESCRIPTION: Learn EQL sequence queries and KQL filtering in Elastic to hunt process chains, lateral movement, and endpoint anomalies.
+description: Learn EQL sequence queries and KQL filtering in Elastic to hunt process chains, lateral movement, and endpoint anomalies.
 ---
+
+## What you will learn
+
+- Identify the telemetry and fields this capability can provide to a hunt.
+- Use the capability to answer a bounded security question.
+- Validate results safely and document coverage, blind spots, and tuning needs.
 
 Elastic gets underrated in hunting circles compared to Splunk and Sentinel, which is a little unfair given that EQL  Event Query Language  was purpose-built for exactly the kind of sequence-based hunting that other query languages bolt on as an afterthought. If your hunt hypothesis involves "this happened, then this happened, then this happened" within a specific window, EQL is often the cleanest way to express that logic, full stop.
 
@@ -40,4 +46,11 @@ The mistake I see most with EQL specifically: teams write a great sequence query
 
 Build the habit of promoting a good ad hoc hunt query into a saved rule the moment it proves its worth once. That's the difference between a hunting program that compounds its own institutional knowledge over time and one that rebuilds the same insights from scratch every few months because nobody wrote anything down.
 
-If you want to get properly comfortable writing EQL sequences and pairing them with KQL exploration  not just reading syntax examples but building real multi-stage hunt queries against realistic datasets  that's exactly what the Elastic hunting labs at Threat Hunt Labs walk you through. Come build a few sequence queries yourself and see how differently attack chains read once you can express them natively.
+
+## Safe lab exercise
+
+Choose one harmless, authorized action with a known timestamp. Predict the evidence it should create, run the smallest useful query, and confirm the relevant host, identity, process, network, and time fields. Record missing fields and false-positive conditions before expanding the scope.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.

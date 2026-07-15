@@ -1,10 +1,16 @@
 ---
-title: EDR Telemetry  What Your Agent Is Really Telling You
+title: "EDR Telemetry: What Your Agent Is Really Telling You"
 date: 2026-08-04 12:00:00 +0530
 categories: [Threat Hunting, SIEM & Platforms]
 tags: [EDR]
-META DESCRIPTION: Get more from any EDR platform  understand process trees, memory events, and behavioral telemetry for better hunting.
+description: Get more from any EDR platform  understand process trees, memory events, and behavioral telemetry for better hunting.
 ---
+
+## What you will learn
+
+- Explain the concept in operational threat-hunting terms.
+- Connect it to a decision, data requirement, or repeatable workflow.
+- Apply it through a small exercise and document the limits of the result.
 
 Every EDR vendor demo looks the same: a slick process tree lights up red, an analyst clicks through to a beautifully summarized verdict, everyone nods. Real hunting doesn't work like that. The vendor's own detection engine already caught the obvious stuff before you ever opened the console. What's actually valuable for a hunter is the raw telemetry sitting underneath that polished alert  the data the agent collected that didn't trigger anything, because that's where the techniques nobody's written a signature for yet are hiding.
 
@@ -38,4 +44,11 @@ The analysis discipline that actually works: use the score to prioritize your qu
 
 You don't necessarily need a better EDR platform to hunt better  you need to actually use the raw telemetry your current platform already collects instead of living entirely inside its alert feed. Most vendors expose a query interface or raw event export specifically for this purpose, and most hunt teams under-use it relative to how much data is actually sitting there unexamined.
 
-Learning to pull and interpret raw EDR telemetry  regardless of which specific vendor you're running  is a transferable skill that matters more than which product logo is on your dashboard. That's exactly the platform-agnostic approach we take in the EDR telemetry modules at Threat Hunt Labs. Come learn to hunt the raw data your agent's already collecting instead of waiting for its alert feed to do the thinking for you.
+
+## Apply the lesson
+
+Choose one real or lab scenario and write down the decision this concept should improve, the evidence required, the owner, and the expected output. Review the result with someone who did not perform the work; revise any assumption they cannot trace to evidence.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.

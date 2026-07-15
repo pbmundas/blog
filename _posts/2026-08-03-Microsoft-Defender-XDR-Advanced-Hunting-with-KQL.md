@@ -1,10 +1,16 @@
 ---
-title: Microsoft Defender XDR Advanced Hunting with KQL
+title: "Microsoft Defender XDR Advanced Hunting with KQL"
 date: 2026-08-03 12:00:00 +0530
 categories: [Threat Hunting, SIEM & Platforms]
 tags: [KQL, Defender XDR]
-META DESCRIPTION: Master Microsoft Defender XDR's Advanced Hunting tables and KQL queries across endpoint, identity, email, and cloud data.
+description: Master Microsoft Defender XDR's Advanced Hunting tables and KQL queries across endpoint, identity, email, and cloud data.
 ---
+
+## What you will learn
+
+- Identify the telemetry and fields this capability can provide to a hunt.
+- Use the capability to answer a bounded security question.
+- Validate results safely and document coverage, blind spots, and tuning needs.
 
 Defender XDR's Advanced Hunting feature gets confused with Sentinel constantly, and the confusion is understandable since both use KQL  but they're genuinely different tools solving different problems. Sentinel is your SIEM, pulling in data from everywhere. Defender XDR Advanced Hunting is scoped specifically to Microsoft's own signal set  endpoint, identity, email, cloud apps  and that narrower scope is actually an advantage for certain hunt types, because the schema is tighter and the correlation across those specific domains is built in rather than something you have to engineer yourself.
 
@@ -38,4 +44,11 @@ Be deliberate about which queries get this treatment, though. A query with a 2% 
 
 As your Advanced Hunting query library grows, you'll notice the same sub-logic  normalizing a process name, extracting a specific pattern from a command line  getting repeated across dozens of queries. KQL lets you define these as reusable functions, and Defender's Advanced Hunting supports saving and referencing them, which keeps your library maintainable instead of becoming forty variations of the same three lines of logic copy-pasted with minor tweaks.
 
-If you want to build real fluency across the Device, Identity, and Email tables  not just running example queries from Microsoft's docs but understanding how to join across domains and design your own cross-signal hunts  that's exactly what we cover in the Defender XDR hunting modules at Threat Hunt Labs. Come build a full inbox-to-endpoint hunt chain yourself and see what a properly joined query actually surfaces.
+
+## Safe lab exercise
+
+Choose one harmless, authorized action with a known timestamp. Predict the evidence it should create, run the smallest useful query, and confirm the relevant host, identity, process, network, and time fields. Record missing fields and false-positive conditions before expanding the scope.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.

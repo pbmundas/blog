@@ -1,10 +1,16 @@
 ---
-title: Building a Detection-as-Code Pipeline
+title: "Building a Detection-as-Code Pipeline"
 date: 2026-08-10 12:00:00 +0530
 categories: [Threat Hunting, Detection Engineering]
 tags: [Named Pipes, Detection as Code]
-META DESCRIPTION: A practical capstone walkthrough for building an end-to-end detection pipeline  from Sigma rule to version control to live SIEM deployment.
+description: A practical capstone walkthrough for building an end-to-end detection pipeline  from Sigma rule to version control to live SIEM deployment.
 ---
+
+## What you will learn
+
+- Explain the attacker behavior and why it matters to the environment.
+- Map the behavior to required endpoint, identity, network, or cloud evidence.
+- Build a scoped hypothesis and distinguish malicious activity from legitimate administration.
 
 Somewhere in most SOCs there's a folder called "detections_final_v3" sitting on someone's desktop, and nobody's entirely sure if what's deployed in the SIEM still matches what's in that folder. That gap  between the rule you think is live and the rule that's actually running  is what detection-as-code is supposed to close. This is the capstone piece, so I'm going to walk through the whole pipeline the way I'd actually build it, not just the concept.
 
@@ -47,3 +53,12 @@ The payoff isn't just cleaner ops  it's actual detection quality over time. When
 Building this pipeline once is genuinely a multi-week project if you're doing it properly with testing infrastructure included. It's also one of the highest-leverage things a detection engineering team can build, because every rule that goes through it afterward gets safer, faster, and easier to maintain.
 
 If you want a structured walkthrough of building this pipeline hands-on instead of assembling it from scattered blog posts, ThreatHuntLabs's detection engineering track covers the whole build, start to finish  check it out and get the full picture fast.
+
+
+## Build the hunt
+
+Write one hypothesis using behavior, target, and expected evidence. Define the asset and time scope, required fields, likely benign explanations, and an escalation threshold. Test first in an authorized lab or approved dataset, then record what the available evidence can and cannot prove.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.

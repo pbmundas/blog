@@ -1,10 +1,16 @@
 ---
-title: Sysmon Deep Dive  Registry, Pipe, WMI, DNS Events
+title: "Sysmon Deep Dive: Registry, Pipe, WMI, DNS Events"
 date: 2026-07-28 12:00:00 +0530
 categories: [Threat Hunting, Windows Logging]
 tags: [Sysmon, Registry, Named Pipes]
-META DESCRIPTION: Go beyond process and network logs  learn to hunt with Sysmon's registry, named pipe, WMI, and DNS event types.
+description: Go beyond process and network logs  learn to hunt with Sysmon's registry, named pipe, WMI, and DNS event types.
 ---
+
+## What you will learn
+
+- Identify the telemetry and fields this capability can provide to a hunt.
+- Use the capability to answer a bounded security question.
+- Validate results safely and document coverage, blind spots, and tuning needs.
 
 Most hunt teams stop at process creation and network connections and call their Sysmon coverage complete. That's leaving a lot on the table. The event types that get less attention  registry modification, named pipes, WMI activity, DNS query logging  are exactly where a lot of persistence, lateral movement, and living-off-the-land techniques hide, precisely because fewer defenders are looking there.
 
@@ -40,4 +46,11 @@ For hunting, this means you can now directly query for process-to-domain pairing
 
 Unlike process creation or network connections, you won't be running these queries against millions of events a day  the volume here is naturally lower, which means the signal-to-noise ratio, once you've built a proper baseline, tends to be better. The tradeoff is you'll spend more time up front understanding what's normal in your specific environment before any of this becomes useful.
 
-Getting comfortable pulling and correlating these less common event types against real registry, pipe, and WMI activity takes practice most teams don't get until an incident forces it. That's exactly the gap we close in the advanced Sysmon modules at Threat Hunt Labs. Come work through registry and WMI persistence hunts on real data before you need that skill during an actual incident.
+
+## Safe lab exercise
+
+Choose one harmless, authorized action with a known timestamp. Predict the evidence it should create, run the smallest useful query, and confirm the relevant host, identity, process, network, and time fields. Record missing fields and false-positive conditions before expanding the scope.
+
+## Key takeaway
+
+This lesson should leave you with a repeatable way to ask a narrower question, examine the right evidence, and improve future hunting or detection work.
