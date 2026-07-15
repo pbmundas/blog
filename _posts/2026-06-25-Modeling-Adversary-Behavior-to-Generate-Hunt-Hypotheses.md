@@ -6,37 +6,55 @@ tags: [hypothesis, behavior analytics, adversary modeling]
 description: Model attacker decisions in your environment and translate those decisions into testable threat-hunting hypotheses.
 ---
 
-## What you will learn
 
-- Model attacker choices instead of treating ATT&CK as a checklist.
-- Account for local controls, privileges, topology, and objectives.
-- Convert likely attacker decisions into observable evidence and tests.
 
-There's a specific kind of hypothesis that's neither purely intelligence-driven nor purely environmental  it comes from mentally simulating an attacker's decision-making against your specific environment, using general knowledge of how adversaries behave rather than a specific report or a specific known gap. This is the hardest of the three hypothesis-generation methods to teach, because it requires holding attacker logic and your own environment's specifics in your head simultaneously, but it's often where the most original findings come from.
+![Adversary decisions modeled as alternative paths through an environment](/assets/img/threat-hunting/attacker-path.svg)
+
+
+
+There's a specific kind of hypothesis that's neither purely intelligence-driven nor purely environmental—it comes from mentally simulating an attacker's decision-making against your specific environment, using general knowledge of how adversaries behave rather than a specific report or a specific known gap. This is the hardest of the three hypothesis-generation methods to teach, because it requires holding attacker logic and your own environment's specifics in your head simultaneously, but it's often where the most original findings come from.
+
+
 
 ## Modeling Decisions, Not Just Techniques
-The earlier piece on the hunting mindset touched on thinking in paths rather than controls  this is that same instinct, applied as a formal hypothesis-generation method rather than a general orientation. Instead of asking "what technique might an attacker use," you ask a sequence of decision-point questions: given a foothold here, what's the fastest path to something valuable, what's the quietest path, and where do those two paths diverge in a way that reveals something about what an attacker would actually choose.
+The earlier piece on the hunting mindset touched on thinking in paths rather than controls—this is that same instinct, applied as a formal hypothesis-generation method rather than a general orientation. Instead of asking "what technique might an attacker use," you ask a sequence of decision-point questions: given a foothold here, what's the fastest path to something valuable, what's the quietest path, and where do those two paths diverge in a way that reveals something about what an attacker would actually choose.
 
-Say you're modeling behavior starting from a compromised standard user workstation. The fastest path to domain admin might run through a known, heavily-monitored privilege escalation technique that would trip several detections quickly. The quietest path might instead go through a slower credential harvesting approach targeting a specific application that caches credentials insecurely  something you happen to know about your own environment's software stack. An attacker optimizing for stealth over speed would likely take the second path, and that's exactly the hypothesis worth building: check for evidence of credential harvesting against that specific application, not the more obvious, heavily-monitored technique that a less careful attacker might use instead.
+
+
+Say you're modeling behavior starting from a compromised standard user workstation. The fastest path to domain admin might run through a known, heavily-monitored privilege escalation technique that would trip several detections quickly. The quietest path might instead go through a slower credential harvesting approach targeting a specific application that caches credentials insecurely—something you happen to know about your own environment's software stack. An attacker optimizing for stealth over speed would likely take the second path, and that's exactly the hypothesis worth building: check for evidence of credential harvesting against that specific application, not the more obvious, heavily-monitored technique that a less careful attacker might use instead.
+
+
 
 ## Using ATT&CK as a Decision Tree, Not a Checklist
-MITRE ATT&CK gets used as a checklist far more often than it gets used as what it actually represents  a structured map of decision points attackers face at each stage. Used as a decision tree, you're not asking "have we hunted for technique X yet," you're asking "given a specific starting position in our environment, which techniques under this tactic would actually be attractive choices, and why." That "why" is the part that generates a genuinely sharp hypothesis rather than a generic one.
+MITRE ATT&CK gets used as a checklist far more often than it gets used as what it actually represents—a structured map of decision points attackers face at each stage. Used as a decision tree, you're not asking "have we hunted for technique X yet," you're asking "given a specific starting position in our environment, which techniques under this tactic would actually be attractive choices, and why." That "why" is the part that generates a genuinely sharp hypothesis rather than a generic one.
 
-Say you're modeling lateral movement options from a compromised server in a segment with fairly aggressive network monitoring. An attacker aware of that monitoring  and a competent one would do at least some reconnaissance to notice it  might specifically avoid noisy techniques like broad network scanning in favor of quieter, more targeted approaches using credentials already harvested from that specific host. Modeling that awareness into your hypothesis  "if an attacker is evading our known network monitoring capability, they'd likely use credential-based lateral movement rather than scanning-based techniques"  produces something sharper than a generic "hunt for lateral movement" hypothesis ever would.
+
+
+Say you're modeling lateral movement options from a compromised server in a segment with fairly aggressive network monitoring. An attacker aware of that monitoring—and a competent one would do at least some reconnaissance to notice it—might specifically avoid noisy techniques like broad network scanning in favor of quieter, more targeted approaches using credentials already harvested from that specific host. Modeling that awareness into your hypothesis—"if an attacker is evading our known network monitoring capability, they'd likely use credential-based lateral movement rather than scanning-based techniques"—produces something sharper than a generic "hunt for lateral movement" hypothesis ever would.
+
+
 
 ## Building From Your Own Detection Gaps, Deliberately
-This method benefits enormously from genuine self-awareness about your own detection weaknesses  the same weaknesses discussed in the mindset piece as things an attacker would likely find through reconnaissance. If you know your organization has weak visibility into a specific segment, a specific application, or a specific time window (say, overnight batch processing windows where alert fatigue means overnight anomalies get less scrutiny), model attacker behavior assuming they'd gravitate toward exploiting exactly that gap. It's uncomfortable to deliberately think through your own weakest points this way, but that discomfort is exactly the signal that you're generating a hypothesis worth actually testing rather than one that just feels productive.
+This method benefits enormously from genuine self-awareness about your own detection weaknesses—the same weaknesses discussed in the mindset piece as things an attacker would likely find through reconnaissance. If you know your organization has weak visibility into a specific segment, a specific application, or a specific time window (say, overnight batch processing windows where alert fatigue means overnight anomalies get less scrutiny), model attacker behavior assuming they'd gravitate toward exploiting exactly that gap. It's uncomfortable to deliberately think through your own weakest points this way, but that discomfort is exactly the signal that you're generating a hypothesis worth actually testing rather than one that just feels productive.
+
+
 
 ## Red Team and Purple Team Exercises as Direct Input
-If your organization runs red team or purple team exercises, the decisions the red team actually made  which paths they chose, which they considered and rejected, and why  are an unusually rich, ready-made source for this kind of hypothesis generation, because it's real adversarial decision-making against your actual environment rather than a mental simulation. A debrief conversation asking the red team specifically "what did you consider doing that you decided against, and why" often surfaces more hunting value than the formal exercise report itself, because the paths not taken reveal just as much about where the real weaknesses sit as the path that was.
+If your organization runs red team or purple team exercises, the decisions the red team actually made—which paths they chose, which they considered and rejected, and why—are an unusually rich, ready-made source for this kind of hypothesis generation, because it's real adversarial decision-making against your actual environment rather than a mental simulation. A debrief conversation asking the red team specifically "what did you consider doing that you decided against, and why" often surfaces more hunting value than the formal exercise report itself, because the paths not taken reveal just as much about where the real weaknesses sit as the path that was.
+
+
 
 ## Where This Method Falls Short, Honestly
-This approach demands more from the hunter than the other two methods  deep environmental knowledge, genuine attacker-mindset fluency, and enough experience to model realistic decision-making rather than generic movie-plot attacker behavior. It's not the right starting point for someone new to hunting; environmental and intelligence-driven hypothesis generation are more approachable first, and this behavioral modeling method tends to sharpen naturally as those other two skills mature, rather than being learnable in isolation from the start.
+This approach demands more from the hunter than the other two methods—deep environmental knowledge, genuine attacker-mindset fluency, and enough experience to model realistic decision-making rather than generic movie-plot attacker behavior. It's not the right starting point for someone new to hunting; environmental and intelligence-driven hypothesis generation are more approachable first, and this behavioral modeling method tends to sharpen naturally as those other two skills mature, rather than being learnable in isolation from the start.
+
+
 
 ## Build a one-path model
 
+
+
 Choose a plausible foothold and objective. At each step, list available attacker options, local controls, required privileges, likely choice, and observable evidence. Select one decision where telemetry is strong enough to test. Treat the model as a prioritization aid, not a prediction of exactly what an attacker must do.
 
-## Key takeaway
+
 
 Behavior modeling improves hypotheses by connecting techniques to attacker decisions in a real environment. Its value comes from explicit assumptions that can be tested and revised.
