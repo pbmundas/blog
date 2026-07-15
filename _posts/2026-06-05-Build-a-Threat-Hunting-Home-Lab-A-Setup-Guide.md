@@ -1,41 +1,134 @@
 ---
-title: Build a Threat Hunting Home Lab A Setup Guide
+title: "Build a Threat Hunting Home Lab: A Safe, Practical Guide"
 date: 2026-06-05 12:00:00 +0530
 categories: [Threat Hunting, Introduction]
-tags: [Threat Hunting, Beginning]
-META DESCRIPTION: A practical guide to building a functional home lab for practising threat hunting, from hardware choices to log sources and first exercises.
+tags: [threat hunting, home lab, Sysmon, telemetry, security lab]
+description: "Build an isolated threat-hunting lab that produces useful Windows, identity, and network telemetry for safe practice."
+image:
+  path: /assets/img/threat-hunting/home-lab-architecture.svg
+  alt: "Isolated threat hunting home lab architecture"
 ---
 
-Somewhere around your third YouTube tutorial on threat hunting, you'll hit the same wall everyone hits: it all sounds reasonable in theory, but you've never actually run a query against real logs and found something. Reading about Sigma rules and MITRE ATT&CK techniques only gets you so far without a place to actually practice  and that's what a home lab is for. Not a production-grade SOC replica, just enough infrastructure to generate real telemetry and hunt against it.
+Threat hunting becomes real when you can ask a question, query telemetry, and follow the evidence yourself. A home lab gives you that practice without requiring a production SOC.
 
-**Hardware: Less Than You'd Think**
+The goal is not to recreate an enterprise. Build the smallest environment that lets you generate normal activity, simulate one approved technique, collect the evidence centrally, and investigate it.
 
-You don't need a rack of servers. A single machine with 32GB of RAM and a decent multi-core CPU handles a surprisingly capable lab through virtualization  say, four or five VMs running simultaneously: a domain controller, a couple of Windows endpoints, a Linux box, and whatever SIEM or log platform you're using. If you're tighter on resources, 16GB is workable if you're careful about running fewer VMs at once and shutting down what you're not actively using.
+> **Safety first:** keep the lab isolated from work, school, and household networks. Use only authorized simulations on systems you own. Do not expose intentionally vulnerable machines or management interfaces directly to the internet.
 
-Cloud alternatives exist too  spinning up the same VMs in AWS or Azure instead of locally  but for a learning lab, local virtualization on VirtualBox or Proxmox usually wins on cost. You're not paying hourly compute charges while you're asleep, and you can snapshot a clean state before every exercise, which matters more than people expect. Attack simulations get messy; being able to revert to a known-good snapshot in ninety seconds instead of rebuilding a VM from scratch saves hours over a few months of practice.
+## What you will build
 
-**The Log Pipeline Is the Part People Skip  Don't Skip It**
+![Isolated home lab architecture](/assets/img/threat-hunting/home-lab-architecture.svg)
 
-This is where most home labs quietly fail. People build the VMs, maybe install an attack simulation tool, run something, and then realize they never actually set up centralized logging  so there's nothing to hunt through except scattered event logs sitting on individual machines. Set up log forwarding before you do anything else.
+A useful starter lab has four layers:
 
-A workable stack: Windows Event Forwarding or a lightweight agent like Winlogbeat on your Windows VMs, feeding into something central  an ELK stack, or a free-tier SIEM, or even just a well-organized set of Parquet files if you're building your own pipeline. The specific platform matters less than the discipline of having one place where all your telemetry lands, queryable, so a hunt can actually pull data across multiple hosts instead of you manually checking event logs on each VM one at a time.
+1. **Virtualization:** a host running local virtual machines.
+2. **Targets:** one or two Windows endpoints and, optionally, a domain controller or Linux host.
+3. **Telemetry:** endpoint, authentication, PowerShell, and network records.
+4. **Analysis:** a central search platform where events can be correlated across systems.
 
-Make sure you're capturing at minimum: process creation events (Sysmon Event ID 1 is the standard here), network connections, authentication logs, and PowerShell script block logging. That combination covers the majority of published hunting playbooks you'll want to practice against. Skip Sysmon and you'll find that half the ATT&CK-based hunt guides you try to follow simply don't have the data they assume you're collecting.
+## Hardware and scope
 
-**Generating Something Worth Hunting For**
+With 16 GB of RAM, begin with two small VMs and run only what the exercise needs. With 32 GB or more, a domain controller, two endpoints, a Linux system, and a modest analysis stack are more comfortable.
 
-A quiet lab with no activity is useless for practice  you need attacker behavior in your logs to hunt for. Atomic Red Team is the standard tool here: a library of small, individually-executable tests mapped directly to MITRE ATT&CK techniques. Running a single Atomic test for, say, T1059.001 (PowerShell execution) generates exactly the kind of telemetry a real attacker using that technique would leave behind, in a controlled and repeatable way.
+Snapshots matter more than scale. Create a clean snapshot after the operating system, updates, telemetry, and log forwarding work. Restore it after exercises instead of allowing unknown changes to accumulate.
 
-Start narrow. Pick one tactic  credential access, say  run two or three Atomic tests under that tactic, then go hunt for evidence of them in your log pipeline without looking at which specific test you ran. This forces you to build hypotheses and validate them against real data rather than just confirming what you already know happened. It's a small discipline shift, but it's the difference between a lab that teaches you something and a lab that just confirms your tool works.
+Cloud-hosted labs can work, but require careful cost controls, firewall rules, identity protection, and teardown procedures. Local virtualization is usually simpler for a first lab.
 
-**A Realistic First Exercise**
+## Design the network safely
 
-Here's a concrete starting point: run an Atomic Red Team test simulating a scheduled task persistence technique (T1053.005) on one Windows VM. Don't look at the specific command that ran. Instead, form a hypothesis  "if someone created a scheduled task for persistence in the last hour, what would that look like in Sysmon and Windows Security logs"  then go query your SIEM for scheduled task creation events combined with unusual parent processes or off-hours timestamps. Confirm you can find your own simulated activity before moving to a harder scenario.
+Use an isolated virtual network for lab traffic. If a VM needs updates, provide temporary outbound access, patch it, and return it to the isolated segment. Avoid bridged networking for intentionally vulnerable targets.
 
-Once that works, layer in complexity: run three or four different techniques across a chain  initial foothold, then credential access, then lateral movement  and practice building a timeline that connects them, the way a real investigation would. This is where the lab starts paying off, because timeline-building across a multi-stage attack is a genuinely different skill from spotting a single suspicious event.
+Create two kinds of accounts:
 
-**Keep a Hunt Log From Day One**
+- a normal user for everyday baseline activity; and
+- a separate administrator for configuration.
 
-Write down every hunt you run in the lab  the hypothesis, the query, what you found, what didn't work. Six months in, this becomes a personal playbook far more valuable than any generic guide, because it's built entirely around your own environment and your own gaps. It's also exactly the kind of documented, hands-on practice that shows real skill in an interview, far more convincingly than a certification alone.
+Do not reuse real passwords, API keys, browser profiles, or company data. Treat every credential inside the lab as disposable.
 
-If you want a structured path through this instead of assembling it piecemeal from scattered tutorials, that's precisely what Threat Hunt Labs is built for  guided exercises against realistic data, from your first Sysmon query to full multi-stage hunt scenarios. Set the lab up once, and it pays you back every time you practice.
+## Build telemetry before simulations
+
+The common failure is to run a technique first and discover afterward that nothing useful was recorded. Validate the data pipeline before generating suspicious activity.
+
+For a Windows-focused starter lab, collect:
+
+- process creation, including command line and parent process;
+- authentication successes and failures;
+- PowerShell script block and module logging;
+- network connections or equivalent flow data;
+- scheduled task and service creation; and
+- DNS activity, where available.
+
+Sysmon can enrich Windows visibility, but its configuration determines what it records. More events are not automatically better: excessive collection can hide the useful signal and exhaust a small lab. Start with a maintained baseline configuration, understand each enabled event type, then tune for your exercises.
+
+## Validate each link in the pipeline
+
+Before the first hunt, confirm:
+
+- every expected host sends data;
+- hostnames, users, process IDs, and timestamps are populated;
+- clocks are synchronized;
+- the analysis platform uses a consistent time zone;
+- events arrive within an acceptable delay; and
+- you can search one known action end to end.
+
+Create a harmless test process on an endpoint and verify that its executable, command line, parent, user, host, and timestamp appear centrally. If any field is missing, fix collection before adding complexity.
+
+## Generate safe, repeatable activity
+
+Use a reputable adversary-emulation framework only inside the isolated lab, and run individual tests you have reviewed. Record the technique, expected change, cleanup steps, and start time. Avoid payloads that disable protections, destroy data, steal real credentials, or create internet-facing access.
+
+For a first exercise, scheduled-task creation is easy to understand and observe:
+
+1. Capture 15–30 minutes of ordinary activity.
+2. Create a benign scheduled task that launches a harmless local command.
+3. Note the exact execution window, but do not immediately inspect every generated event.
+4. Hunt for newly created tasks and their related process activity.
+5. Explain how you would separate your test from legitimate maintenance tasks.
+6. Remove the task and restore the clean snapshot if needed.
+
+## Write the hunt before the query
+
+Use a small hunt record:
+
+```text
+Hypothesis:
+Scope and time range:
+Required data:
+Expected attacker evidence:
+Likely benign explanations:
+Queries and pivots:
+Findings:
+Data gaps:
+Next action:
+```
+
+For the scheduled-task exercise, a hypothesis might be:
+
+> If persistence is created through a scheduled task, the endpoint will record task creation followed by execution from the task service, and the task name, author, path, user, timing, or child process may differ from the local baseline.
+
+## Add complexity gradually
+
+Once one-host exercises are reliable, expand in this order:
+
+1. correlate task creation with process execution;
+2. compare the same behavior across two endpoints;
+3. add authentication and a second identity;
+4. follow activity from one host to another; and
+5. build a short timeline across endpoint, identity, and network data.
+
+Change one variable at a time. If you add a domain controller, network sensor, three tools, and five simulations together, pipeline failures become difficult to diagnose.
+
+## A lab-readiness checklist
+
+- [ ] The virtual network is isolated.
+- [ ] No personal or organizational credentials are present.
+- [ ] Clean snapshots exist.
+- [ ] Endpoint and authentication telemetry arrive centrally.
+- [ ] Timestamps and host identities are consistent.
+- [ ] One harmless action can be traced end to end.
+- [ ] Each simulation is reviewed, scoped, and cleaned up.
+- [ ] Every hunt is recorded, including negative results and data gaps.
+
+## Key takeaway
+
+A good hunting lab is a telemetry laboratory, not a collection of attack tools. Build the evidence pipeline first, validate it with harmless actions, and add one controlled technique at a time. The discipline you develop—hypothesis, evidence, validation, and documentation—is the same discipline you will use in a real SOC.

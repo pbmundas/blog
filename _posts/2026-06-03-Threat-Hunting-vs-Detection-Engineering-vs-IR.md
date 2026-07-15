@@ -1,41 +1,104 @@
 ---
-title: Threat Hunting vs Detection Engineering vs IR
+title: "Threat Hunting vs. Detection Engineering vs. Incident Response"
 date: 2026-06-03 12:00:00 +0530
 categories: [Threat Hunting, Introduction]
-tags: [Threat Hunting, Beginning]
-META DESCRIPTION: A clear breakdown of how threat hunting, detection engineering, and incident response differ  and when each discipline actually applies.
+tags: [threat hunting, detection engineering, incident response, SOC]
+description: "Understand where hunting, detection engineering, and incident response differ—and how findings move between them."
+image:
+  path: /assets/img/threat-hunting/soc-feedback-cycle.svg
+  alt: "Feedback cycle connecting hunting, detection engineering, and incident response"
 ---
 
-A new analyst joins a SOC and gets told, on day one, "you'll be doing some threat hunting, helping with detections, and jumping into IR when needed." Six months later, that same analyst still can't tell you where one job ends and the next begins, because most SOCs blur these three roles constantly  sometimes out of necessity, sometimes because leadership genuinely doesn't understand they're different disciplines with different goals.
+Threat hunting, detection engineering, and incident response often involve the same people, logs, and tools. That overlap makes the work look interchangeable. It is not.
 
-They are different. Not wildly different, and they overlap at the edges constantly, but conflating them causes real problems: metrics get measured wrong, headcount gets allocated wrong, and programs stall because nobody's actually doing the proactive work while everyone's technically "doing threat hunting" in their job title.
+The simplest distinction is the starting point:
 
-**Detection Engineering: Building the Net Before the Fish Arrive**
+- **Hunting starts with a question.**
+- **Detection engineering starts with behavior worth detecting repeatedly.**
+- **Incident response starts with a suspected or confirmed incident.**
 
-Detection engineering is the discipline of writing, testing, and tuning the rules that catch known-bad behavior automatically. A detection engineer takes a TTP  say, credential dumping via LSASS access  and builds a Sigma rule or SIEM correlation that fires reliably when that behavior occurs, with false positive rates low enough that analysts don't tune it out from alert fatigue.
+Knowing which mode you are in changes the urgency, the expected output, and the people who need to participate.
 
-The mindset here is closer to software engineering than investigation. You're thinking about coverage, about testing against known-good and known-bad samples, about maintaining rules as environments and attacker techniques shift. A good detection engineer treats their rule set like a codebase  version controlled, tested, documented, with a clear owner for every rule so nothing quietly rots for three years while the environment around it changes completely.
+## At a glance
 
-**Incident Response: What Happens After Something's Confirmed**
+| Discipline | Trigger | Primary goal | Common output |
+|---|---|---|---|
+| Threat hunting | Hypothesis, risk, or intelligence lead | Find activity missed by current detections | Findings, visibility gaps, new analytics |
+| Detection engineering | A behavior that should be recognized at scale | Create reliable, maintainable detection logic | Tested rule, documentation, tuning data |
+| Incident response | Suspected or confirmed compromise | Limit harm and restore safe operations | Containment, timeline, eradication, lessons learned |
 
-Incident response starts the moment a confirmed or highly-likely compromise is identified, whether that came from a detection firing, a hunt finding something, or a user reporting a phishing click. IR is about containment, eradication, and recovery  pulling a host off the network, resetting credentials, rebuilding a system, figuring out what data left the building and telling the people who need to know.
+## Threat hunting: investigate without an alert
 
-The clock matters differently here than in the other two disciplines. A detection engineer can spend three weeks tuning a rule to reduce false positives from 40% to 2%. An IR responder dealing with active ransomware doesn't have three weeks  decisions happen in minutes and hours, often with incomplete information, because waiting for complete information means the blast radius keeps growing.
+A hunt asks whether a plausible malicious behavior is present even though no alert reported it. Hunters define a scope, identify evidence, query, pivot, and test benign explanations.
 
-**Threat Hunting: The Discipline With No Alert to Respond To**
+Example hypothesis:
 
-Threat hunting, as covered earlier, is proactive investigation without a triggering alert. This is the discipline most often confused with the other two, because a hunt that finds something looks, from the outside, exactly like an IR engagement  someone's pulling logs, building a timeline, confirming malicious activity. The difference is in how it started. IR responds to a known incident. Hunting goes looking without knowing whether there's anything there at all.
+> A compromised service account may be using WMI to reach workstations outside its normal server group.
 
-Here's a distinction that trips people up constantly: a hunter finding an active compromise doesn't stay a hunter for that engagement. The moment a hunt confirms malicious activity, it should hand off into IR  different priorities, different pace, often a different set of tools and stakeholders (legal, comms, leadership) who need to get looped in. A hunting team that tries to also run full incident response on everything it finds usually does both jobs worse, because the skills and cadence genuinely diverge.
+The output might be a benign explanation, a logging gap, an active incident, or repeatable logic suitable for a detection.
 
-**Where the Overlap Actually Helps**
+## Detection engineering: make repeatable behavior visible
 
-The three disciplines feed each other, and a SOC that keeps them in silos loses that feedback loop entirely. A hunt that discovers a new persistence technique should generate a detection engineering ticket  that finding becomes a permanent rule instead of a one-time discovery that nobody remembers by next quarter. An IR engagement should produce lessons that inform both future hunts (where should we look next time based on this actor's behavior) and new detections (what would have caught this earlier).
+Detection engineers turn security knowledge into analytics that can run consistently. The work resembles software engineering: version control, test cases, peer review, deployment, monitoring, and maintenance all matter.
 
-Say your IR team just closed out an engagement involving a compromised service account used for lateral movement via WMI. That postmortem should generate at minimum one new Sigma rule for WMI-based lateral movement patterns, and one hunting hypothesis around other service accounts with similarly broad permissions that haven't been checked yet. If that handoff doesn't happen  if IR closes the ticket and everyone moves on  you've paid the full cost of a breach and gotten none of the long-term defensive value out of it.
+A useful detection is more than a query that once returned an attack. It should state:
 
-**How to Tell Which One You're Actually Doing**
+- the behavior and risk it covers;
+- required data sources and fields;
+- expected false positives;
+- test evidence for malicious and benign cases;
+- response guidance; and
+- an owner and review schedule.
 
-A quick gut check: if you're starting from an alert, you're doing IR (or at minimum, alert triage that might escalate into IR). If you're starting from a rule you're writing or tuning, you're doing detection engineering. If you're starting from a hypothesis and there's no alert or existing rule driving the work, you're hunting. Titles and job descriptions blur this constantly, but the actual work, moment to moment, almost always fits cleanly into one of these three buckets  and knowing which one you're in changes how you should be measuring success, how urgently you need to move, and who else needs to be in the loop.
+If a hunt discovers that WMI launched a process on an unusual peer workstation, detection engineering might generalize the pattern, add local exclusions, and test it against both simulations and normal administration.
 
-If you're trying to build fluency across all three  not just one  that's a deliberately broader skill set than most SOC roles ask for on paper, but it's exactly what makes a hunter effective at generating detections that stick and IR engagements that produce real lessons afterward. Threat Hunt Labs builds training around that full loop, not just one slice of it.
+## Incident response: control a real event
+
+When evidence indicates compromise, priorities change. Incident response determines scope, contains the threat, preserves evidence, removes attacker access, and restores safe operation.
+
+The handoff from hunt to IR should include:
+
+- the reason for escalation;
+- affected identities, hosts, and time range;
+- supporting queries and raw evidence;
+- confidence and known uncertainties; and
+- actions already taken.
+
+Hunters should avoid quietly containing systems unless the response process authorizes it. An uncoordinated action can destroy evidence or warn an attacker.
+
+## The work forms a cycle
+
+![SOC disciplines form a feedback cycle](/assets/img/threat-hunting/soc-feedback-cycle.svg)
+
+The strongest security programs make the handoffs routine:
+
+1. A hunt reveals a suspicious pattern.
+2. IR investigates and confirms or rejects compromise.
+3. Detection engineering captures repeatable behavior.
+4. Lessons from the incident reveal new gaps and hypotheses.
+5. Hunters test those gaps, beginning the next cycle.
+
+Without this cycle, teams pay repeatedly for the same lesson.
+
+## A practical classification test
+
+Ask these questions during the work:
+
+1. **What started this activity?** An alert suggests triage or IR; a hypothesis suggests hunting; a known behavior needing coverage suggests detection engineering.
+2. **What is the immediate priority?** Exploration, durable coverage, and containment require different cadences.
+3. **What is the exit condition?** A hunt ends when the hypothesis is sufficiently tested; a detection task ends when the analytic is validated and operational; an incident ends when response criteria are met.
+4. **Who owns the next decision?** A hunter can recommend containment, but the incident commander or response process should authorize it.
+
+## Mini scenario
+
+A hunter notices a service account launching processes through WMI on three employee laptops.
+
+- **Hunting:** establish whether the pattern is unusual, expand the scope, and gather evidence.
+- **Incident response:** if compromise is plausible, contain affected assets, protect credentials, and determine impact.
+- **Detection engineering:** after the behavior is understood, create and test logic that identifies recurrence.
+
+The same evidence passes through all three disciplines, but the objective changes at each stage.
+
+## Key takeaway
+
+Do not define the work by the tool or job title. Define it by its trigger, goal, and exit condition. Clear boundaries make handoffs faster—and tight feedback between the disciplines makes every incident and hunt improve future detection.
