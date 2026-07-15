@@ -2,9 +2,18 @@
 title: Building a Threat Intelligence Function That Actually Feeds Your Hunts
 date: 2026-06-17 12:00:00 +0530
 categories: [Threat Hunting, Threat Intelligence]
-tags: [CTI, Threat Intelligence]
+tags: [CTI, threat intelligence, hunt operations]
 description: How to design a CTI function that continuously produces testable hunt hypotheses, instead of a report archive nobody reads.
+image:
+  path: /assets/img/threat-hunting/intelligence-hunt-loop.svg
+  alt: "Feedback loop connecting intelligence collection, hunt hypotheses, findings, and new priorities"
 ---
+
+## What you will learn
+
+- Start intelligence work from a named consumer and decision.
+- Convert reporting into a prioritized hunt backlog.
+- Feed hunt outcomes back into collection and analysis priorities.
 
 Plenty of security teams have a threat intelligence "function" that amounts to one analyst forwarding vendor emails to a Slack channel that nobody checks. That's not a CTI program feeding hunting operations  it's a mailing list with extra steps. Building something that actually drives hunts requires deliberate structure around a genuinely unglamorous question: what happens between "intelligence arrives" and "hunt gets run," and who owns making that happen.
 
@@ -30,4 +39,10 @@ A CTI function that generates far more hypotheses than the hunting team can ever
 ## What Good Actually Looks Like Here
 A functioning CTI-to-hunting pipeline is boring in the best way  a predictable weekly or biweekly rhythm, a visible backlog with clear ownership, and a rough one-to-one relationship between hypotheses generated and hypotheses eventually tested, rather than an ever-growing pile. Getting the structure right matters more than the sophistication of any individual source feeding into it.
 
-Building this pipeline hands-on  practicing the translation step specifically, not just reading about it in the abstract  is exactly the kind of applied skill we focus on at Threat Hunt Labs, working through real intelligence intake and turning it into a genuine, prioritized hunt backlog rather than a folder of good intentions.
+## Define the operating contract
+
+For each intelligence product, record the consumer, decision, required delivery time, confidence standard, and expected action. Every hunt candidate should have a hypothesis, local relevance, required data, priority, expiry date, and owner. Review which products generated decisions or hunts each quarter; retire the ones that only generated reading.
+
+## Key takeaway
+
+An intelligence function succeeds when its outputs change priorities and produce testable work. Collection is an input; better decisions and better hunts are the outcome.

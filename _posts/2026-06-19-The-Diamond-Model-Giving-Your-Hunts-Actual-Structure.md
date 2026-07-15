@@ -1,10 +1,19 @@
 ---
-title: The Diamond Model  Giving Your Hunts Actual Structure
+title: "The Diamond Model: Give Your Hunts Structure"
 date: 2026-06-19 12:00:00 +0530
 categories: [Threat Hunting, Threat Intelligence]
-tags: [Diamond Model]
+tags: [Diamond Model, intrusion analysis, threat hunting]
 description: Applying the Diamond Model of intrusion analysis to enrich hunt hypotheses with actor, capability, infrastructure, and victim context.
+image:
+  path: /assets/img/threat-hunting/diamond-model.svg
+  alt: "Diamond Model connecting adversary, capability, infrastructure, and victim"
 ---
+
+## What you will learn
+
+- Describe an intrusion event through the four Diamond Model vertices.
+- Pivot from one known fact to related infrastructure, capabilities, or victims.
+- Record confidence separately from assumptions and analytical gaps.
 
 Two hunters can look at the exact same finding  a suspicious scheduled task on one host  and walk away with completely different levels of understanding, depending on whether they stopped at "found it, confirmed malicious, closed" or kept asking questions about who's behind it, what tooling they used, and what infrastructure it connects to. The Diamond Model is essentially a structured way of forcing that second, deeper set of questions every time.
 
@@ -26,4 +35,10 @@ The real power of the Diamond Model for a hunting program isn't documenting a si
 ## Building This Into Your Documentation Habits
 Practically, this means your hunt documentation template  the one covered in earlier pieces on documentation standards  should have room for all four corners, not just a findings summary. A finding logged with capability alone gets used once. The same finding logged across all four corners becomes a genuine reference point for connecting future findings, months later, that might otherwise look unrelated.
 
-Learning to work the Diamond Model into real investigations  not as an academic exercise but as a genuine habit that changes how you follow up on findings  is core to the kind of structured hunting practice we build at Threat Hunt Labs, using real scenarios where pushing past the easy first answer is exactly what separates a shallow finding from a durable one.
+## Practice one pivot
+
+Start with one observed event and fill only what the evidence supports at each vertex. Then choose one missing relationship to investigate: other victims contacted by the infrastructure, other capabilities using it, or other infrastructure associated with the capability. Label inferred relationships and confidence; do not turn structural similarity into actor attribution.
+
+## Key takeaway
+
+The Diamond Model earns its place when it creates the next useful pivot. Its four vertices keep the investigation from stopping at a tool name or isolated indicator.

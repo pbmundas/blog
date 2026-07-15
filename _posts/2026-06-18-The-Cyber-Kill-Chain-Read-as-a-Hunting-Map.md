@@ -2,9 +2,18 @@
 title: The Cyber Kill Chain, Read as a Hunting Map
 date: 2026-06-18 12:00:00 +0530
 categories: [Threat Hunting, Threat Intelligence]
-tags: [Kill Chain]
+tags: [cyber kill chain, threat hunting, coverage]
 description: Using the cyber kill chain model to identify where hunting opportunities actually exist at each stage of an intrusion.
+image:
+  path: /assets/img/threat-hunting/kill-chain-hunting-map.svg
+  alt: "Cyber Kill Chain stages mapped to hunting visibility and response time"
 ---
+
+## What you will learn
+
+- Use the Kill Chain as a coverage lens rather than a rigid attack script.
+- Identify which stages are visible in your telemetry.
+- Prefer earlier hunting opportunities while preserving late-stage safeguards.
 
 The kill chain gets criticized a lot in modern security circles  too linear, too focused on perimeter-style intrusions, doesn't map cleanly onto cloud-native attacks or insider threats. Some of that criticism is fair. But dismissing the model entirely throws out something genuinely useful for hunters: a structured way of asking "where in this sequence would evidence actually exist, and which stage gives me the best odds of catching something."
 
@@ -30,4 +39,10 @@ The final stage  data exfiltration, destructive action, whatever the actual obje
 ## Using the Model as a Coverage Check, Not a Rulebook
 The most practical use of the kill chain for a hunting program isn't running through it stage by stage on every single hunt  it's periodically auditing your hunting backlog against it and asking honestly which stages you've actually built hunt hypotheses for versus which ones you've quietly never covered. Say a program audit reveals that 80% of recent hunts have focused on installation and command-and-control, with almost nothing addressing actions-on-objectives  that's a coverage gap worth deliberately correcting, not because every stage deserves equal attention, but because an unexamined gap is worse than a deliberately deprioritized one.
 
-Learning to map real telemetry to each stage of this model  not just naming the stages, but knowing specifically what to hunt for and where  is exactly the kind of structured practice we build at Threat Hunt Labs, working through each stage against actual lab data rather than treating the kill chain as a diagram to memorize.
+## Build a coverage map
+
+For every stage, list one relevant behavior, required telemetry, existing prevention, existing detection, and a hunting opportunity. Mark stages as visible, partially visible, or blind. Do not assume an intrusion follows the model once or in order; use the map to expose coverage gaps and possible pivots.
+
+## Key takeaway
+
+The Kill Chain is useful as a question set: where could we observe, interrupt, or investigate this operation? It is not proof that every attacker follows a neat linear sequence.

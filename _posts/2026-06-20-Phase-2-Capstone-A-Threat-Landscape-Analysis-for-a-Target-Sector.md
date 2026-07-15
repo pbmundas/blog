@@ -1,10 +1,14 @@
 ---
-title: Phase 2 Capstone  A Threat Landscape Analysis for a Target Sector
+title: "Phase 2 Capstone: Threat Landscape Analysis for a Target Sector"
 date: 2026-06-20 12:00:00 +0530
 categories: [Threat Hunting, Threat Intelligence]
-tags: [Capstone]
+tags: [capstone, threat intelligence, threat landscape]
 description: A capstone exercise producing a real, professional-grade threat intelligence product that directly drives sector-specific hunt planning.
 ---
+
+## Capstone outcome
+
+Produce a sourced threat-landscape assessment and a prioritized hunt backlog for one clearly defined sector. Separate reported facts, analytical judgments, and assumptions throughout the document.
 
 Reading about actor categories, kill chains, and intelligence layers separately is one thing. Producing an actual sector threat landscape analysis  the kind a real security leader would use to prioritize next quarter's hunting effort  is a different exercise entirely, and it's the one that proves whether the earlier pieces actually connected into something usable.
 
@@ -26,4 +30,10 @@ A document like this benefits enormously from a critical read by someone who'll 
 ## What This Capstone Actually Demonstrates
 Finishing this proves something distinct from finishing the Phase 1 program design capstone. That one showed you could structure a hunting operation. This one shows you can produce the actual intelligence input that decides what that operation should be hunting for in the first place  a genuinely different and complementary skill, and one that's rarer, because it requires holding actor behavior, technical models, and sector-specific risk together in a way that most individual pieces of training never ask you to combine.
 
-If you want structured feedback on an analysis like this, working through it against real sector data and getting pushed on the gaps rather than building it in isolation, that kind of applied review is exactly the next step Threat Hunt Labs supports as you move from foundational intelligence concepts into producing something genuinely useful in the field.
+## Definition of done
+
+Deliver an executive summary, scope and date boundary, source and confidence method, sector assets and dependencies, prioritized actor and campaign patterns, relevant techniques, key uncertainties, and five ranked hunt hypotheses. Each hypothesis must state required telemetry and why it matters to the sector.
+
+## Key takeaway
+
+A threat-landscape report is useful when a defender can trace every priority to evidence and every important conclusion to an action. A polished list of actors without a hunt backlog is unfinished analysis.
